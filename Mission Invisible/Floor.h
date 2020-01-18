@@ -1,0 +1,36 @@
+#pragma once
+
+#include "MapObject.h"
+
+
+
+class Floor : public MapObject
+{
+public:
+	Floor(const int &x, const int &y); // make new floor
+
+	virtual void collideWith(DynamicObject&) {};
+	virtual void collideWith(const Wall&) {};
+	virtual void collideWith(const Floor&) {};
+	virtual void collideWith(Door&) {};
+	virtual void collideWith(const Treasure&) {};
+
+	virtual bool openDoor(Door& obj);
+	virtual bool openDoor(Key& obj);
+	virtual bool openDoor(std::shared_ptr<Items>& obj);
+
+
+
+	virtual sf::FloatRect getGlobalBounds()  const; // return Sprite bounds
+	virtual sf::Vector2f getPosition() const;  // return Sprite pos
+
+	virtual void loadTexture(const std::string &name); // get what texture to load and load it
+
+
+	virtual bool isPassAble();
+
+private:
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const; // to draw the map
+	static bool isRegisterFactory; // to register in the factor
+};
+
